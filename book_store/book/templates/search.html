@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+    {% if searched %}
+
+        <hr>
+            <div class="sellers_grid">
+			<ul class="sellers">
+				<i class="star"> </i>
+				<li class="sellers_desc"><h2>{{ searched }}</h2></li>
+				<div class="clearfix"> </div>
+			</ul>
+		</div>
+		    <div class="grid_2">
+            {% for item in book_search %}
+			    <div class="col-md-3 span_6">
+                  <div class="box_inner">
+                    <a href="{% url 'single' item.id %}"><img src="{{ item.image.url }}" class="img-responsive" style="display: block; margin-left: auto; margin-right: auto; max-width: 300px; max-height: 300px;"  alt=""/></a>
+                     <div class="sale-box"> </div>
+                     <div class="desc">
+                        <h3>{{ item.title|safe|linebreaks|truncatechars:17}}</h3>
+                        <h4>{{ item.price }} $</h4>
+                        <ul class="list2">
+                            <form method="post" id="post-form">
+                                <li  class="list2_left"><span  class="m_1"><a   href="{% url 'addtoshopcart' item.id %}" class="link">В КОРЗИНУ</a></span></li>
+                            </form>
+                          <li class="list2_right"><span class="m_2"><a href="{% url 'single' item.id %}" class="link1" style="font-size: 11px;">Узнать больше</a></span></li>
+                          <div class="clearfix"> </div>
+                        </ul>
+                        <div class="heart"> </div>
+                     </div>
+                   </div>
+                    <hr>
+                </div>
+            {% endfor %}
+			<div class="clearfix"> </div>
+		</div>
+
+
+    {% else %}
+        <h1>Ошибка поиска</h1>
+    {% endif %}
+
+{% endblock %}

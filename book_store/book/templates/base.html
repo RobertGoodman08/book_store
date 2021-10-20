@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Gifty an E-Commerce online Shopping Category Flat Bootstarp responsive Website Template| Home :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Gifty Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Custom Theme files -->
+<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<link href="{% static 'css/mestyle.css'%}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{% static 'css/jquery.countdown.css' %}" />
+<!-- Custom Theme files -->
+<!--webfont-->
+<link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<!-- dropdown -->
+<script src="{% static 'js/jquery.easydropdown.js' %}"></script>
+<!-- start menu -->
+<link href="{% static 'css/megamenu.css' %}" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="{% static 'js/megamenu.js' %}"></script>
+<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+<script src="{% static 'js/responsiveslides.min.js' %}"></script>
+<script>
+    $(function () {
+      $("#slider").responsiveSlides({
+      	auto: true,
+      	nav: false,
+      	speed: 500,
+        namespace: "callbacks",
+        pager: true,
+      });
+    });
+</script>
+<script src="{% static 'js/jquery.countdown.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+<div class="header_top">
+  <div class="container">
+  	<div class="header_top-box">
+     <div class="header-top-left">
+			  <div class="box">
+			  	   	<select tabindex="4" class="dropdown drop">
+					   <option value="" class="label" value="">Dollar :</option>
+				       <option value="1">Dollar</option>
+				       <option value="2">Euro</option>
+					</select>
+   			   </div>
+   			   <div class="box1">
+   				       <select tabindex="4" class="dropdown">
+							<option value="" class="label" value="">English :</option>
+							<option value="1">English</option>
+							<option value="2">French</option>
+							<option value="3">German</option>
+					  </select>
+   			   </div>
+   				    <div class="clearfix"></div>
+   			 </div>
+			 <div class="cssmenu">
+				<ul>
+					<li class="active"><a href="login.html">Account</a></li>
+					<li><a href="wishlist.html">Wishlist</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li style="color: #ECECEC">Добро пожаловать, {{ user.username }}</li> <li><a href="{% url 'logout' %}">Выход</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Вход</a></li>
+                        <li><a href="{% url 'register'  %}">Регистрация</a></li>
+                    {% endif %}
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+   </div>
+</div>
+</div>
+<div class="header_bottom">
+	<div class="container">
+	 <div class="header_bottom-box">
+		<div class="header_bottom_left">
+			<div class="logo">
+				<a href="/"><img src="{% static 'images/logo.png' %}" alt=""/></a>
+			</div>
+			<ul class="clock">
+			</ul>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="header_bottom_right">
+            <form method="post" action="{% url 'search' %}">
+                {% csrf_token %}
+                <div class="search">
+                  <input  name="searched" type="text" placeholder="Поиск" >
+                  <input type="submit" value="">
+                </div>
+            </form>
+	  		<ul class="bag">
+	  			<a href="{% url 'shopcart' %}"><i class="bag_left"> </i></a>
+	  			<a href="{% url 'shopcart' %}"><li class="bag_right"><p>{{ total }}$</p> </li></a>
+	  			<div class="clearfix"> </div>
+	  		</ul>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+</div>
+<div class="menu">
+	<div class="container">
+		<div class="menu_box">
+	     <ul class="megamenu skyblue">
+			<li class="active grid"><a class="color2" href="/">Home</a></li>
+			<li><a class="color4" href="https://www.instagram.com/nikita.g08?r=nametag">Инстаграм</a></li>
+			<li><a class="color10" href="#">Категории</a>
+				<div class="megapanel">
+					<div class="row">
+						<div class="col1">
+							<div class="h_nav">
+                                <h3>Книги</h3>
+                                {% for item in category %}
+                                    <ul class="mmenuu">
+                                        <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                            <ul class="ssubmenuu">
+                                                <li><a href=#></a>{{ item.name }}</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+							</div>
+						</div>
+						<div class="col1">
+							<div class="h_nav">
+								<ul class="mmenuu">
+                                    <li><a href=#>Меню №1</a>
+                                        <ul class="ssubmenuu">
+                                            <li><a href=#>Субменю №1 первого меню</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+							</div>
+						</div>
+						<div class="col2">
+							<div class="h_nav">
+								<h4>Топ</h4>
+								<ul>
+									<li class>
+										<div class="p_left">
+										   <img src="{% static 'images/t1.jpg' %}" class="img-responsive" alt=""/>
+										</div>
+										<div class="p_right">
+											<h4><a href="#">Denim shirt</a></h4>
+											<span class="item-cat"><small><a href="#">Jackets</a></small></span>
+											<span class="price">29.99 $</span>
+										</div>
+										<div class="clearfix"> </div>
+									</li>
+									<li>
+										<div class="p_left">
+										  <img src="{% static 'images/t2.jpg' %}" class="img-responsive" alt=""/>
+										</div>
+										<div class="p_right">
+											<h4><a href="#">Denim shirt</a></h4>
+											<span class="item-cat"><small><a href="#">Jackets</a></small></span>
+											<span class="price">29.99 $</span>
+										</div>
+										<div class="clearfix"> </div>
+									</li>
+									<li>
+										<div class="p_left">
+										   <img src="{% static 'images/t3.jpg' %}" class="img-responsive" alt=""/>
+										</div>
+										<div class="p_right">
+											<h4><a href="#">Denim shirt</a></h4>
+											<span class="item-cat"><small><a href="#">Jackets</a></small></span>
+											<span class="price">29.99 $</span>
+										</div>
+										<div class="clearfix"> </div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					  </div>
+					</div>
+			</li>
+			<li><a class="color3" href="404.html">Акция</a></li>
+			<li><a class="color7" href="#">Купить товары серии random</a>
+			</li>
+			<li><a class="color8" href="blog.html">Аудиокниги</a></li>
+			<div class="clearfix"></div>
+		 </ul>
+	  </div>
+</div>
+</div>
+
+{% block content %}
+
+    {% include 'index.html' %}
+
+{% endblock %}
+
+
+
+
+<div class="footer">
+	<div class="container">
+		<img src="{% static 'images/pay.png' %}" class="img-responsive" alt=""/>
+		<ul class="footer_nav">
+		  <li><a href="#">Home</a></li>
+		  <li><a href="#">Blog</a></li>
+		  <li><a href="#">Shop</a></li>
+		  <li><a href="#">Media</a></li>
+		  <li><a href="#">Features</a></li>
+		  <li><a href="#">About Us</a></li>
+		  <li><a href="contact.html">Contact Us</a></li>
+		</ul>
+		<p class="copy">Copyright&copy; 2021 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+	</div>
+</div>
+</body>
+</html>

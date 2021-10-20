@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link href="{% static 'css/megamenu.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="{% static 'js/megamenu.js' %}"></script>
+    <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+    <link rel="stylesheet" href="{% static 'css/etalage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mecomments.css' %}">
+
+    <script src="{% static 'js/jquery.etalage.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/mestyle.css' %}">
+
+
+
+
+
+
+    <style>
+        hr {
+          border: 0;
+          clear:both;
+          display:block;
+          width: 98%;
+          background-color: white;
+          height: 5px;
+        }
+    </style>
+
+<script>
+			jQuery(document).ready(function($){
+
+				$('#etalage').etalage({
+					thumb_image_width: 300,
+					thumb_image_height: 400,
+					source_image_width: 900,
+					source_image_height: 1200,
+					show_hint: true,
+					click_callback: function(image_anchor, instance_id){
+						alert('Callback example:\nYou clicked on an image with the anchor: "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")');
+					}
+				});
+
+			});
+		</script>
+
+
+    <div class="men">
+	<div class="container">
+	  <div class="single_top">
+	       <div class="col-md-9 single_right">
+	   	       <div class="grid images_3_of_2">
+						<ul id="etalage">
+							<li>
+								<a href="optionallink.html">
+									<img class="etalage_thumb_image" src="{{ book_single.image.url }}" class="img-responsive" />
+									<img class="etalage_source_image" src="{{ book_single.image.url }}" class="img-responsive" title="" />
+								</a>
+							</li>
+                            {% for rs in images %}
+                                <li>
+                                    <img class="etalage_thumb_image" src="{{ rs.image.url }}" class="img-responsive" />
+                                    <img class="etalage_source_image" src="{{ rs.image.url }}" class="img-responsive" title="" />
+                                </li>
+                            {% endfor %}
+						</ul>
+						 <div class="clearfix"></div>		
+				  </div> 
+				  <div class="desc1 span_3_of_2">
+				    <h1 class="titlee" style="color: black; font-size: 20px">{{ book_single.title }}</h1>
+
+                      <p class="m_5">${{ book_single.price }}</p>
+                      <div class="containere">
+                          <div style="margin-left: -630px; margin-top: -150px">
+                                <ol>
+                                    <li><a href="#" class="star1" onclick="stars1()"><span class="fas fa-star">&#9734</span></a></li>
+                                    <li><a href="#" class="star2" onclick="stars2()"><span class="fas fa-star">&#9734</span></a></li>
+                                    <li><a href="#" class="star3" onclick="stars3()"><span class="fas fa-star">&#9734</span></a></li>
+                                    <li><a href="#" class="star4" onclick="stars4()"><span class="fas fa-star">&#9734</span></a></li>
+                                    <li><a href="#" class="star5" onclick="stars5()"><span class="fas fa-star">&#9734</span></a></li>
+                                </ol>
+                          </div>
+                    </div>
+
+                      <br>
+
+				    <div class="btn_form">
+						<form>
+							<span  class="m_1"><a   href="{% url 'addtoshopcart' book_single.id %}" class="link">В КОРЗИНУ</a></span>
+						</form>
+					 </div>
+					 <span class="m_link"><a href="#">Автор: {{ book_single.аuthor }}</a> </span>
+                      <span class="m_link"><a href="{% url 'category' book_single.id %}">Category: {{ book_single.category }}</a> </span>
+					 <p class="m_text2">{{ book_single.description|linebreaks|truncatewords:40 }}</p>
+				  </div>
+
+
+				  <div class="clearfix"></div>	
+       </div>
+       <div class="col-md-3">
+      	<!-- FlexSlider -->
+              <section class="slider_flex">
+				  <div class="flexslider">
+					<ul class="slides">
+                        {% for books in books_single %}
+                            <li><a href="{% url 'single' books.id %}"><img src="{{ books.image.url }}" class="img-responsive" alt=""/></a></li>
+                        {% endfor %}
+				    </ul>
+				  </div>
+	          </section>
+<!-- FlexSlider -->
+      </div>
+      <div class="clearfix"> </div>
+     </div>
+       <div class="toogle">
+     	<h2>информация о продукте</h2>
+     	<p class="m_text2">{{ book_single.description}}</p>
+     </div>
+     <div class="toogle">
+        <div class="shadow" style="margin-top: 20px">
+            <strong style="top: 20px;">Комментарии</strong>
+
+            <hr/>
+
+             {% for comment in comments %}
+
+
+                    <h3 style="margin-left: 20px;">{{ comment.user }} :</h3>
+                     <p style="margin-top: 5px; margin-left: 40px">{{ comment.body }}</p>
+                    <hr>
+             {% endfor %}
+
+
+         <br>
+
+
+         <form method="post">
+
+             {% csrf_token %}
+            <div>
+                 <h1>Name:</h1>
+                 <p class="form-control1">{{ form.user }}</p>
+            </div>
+            <br>
+             <div>
+                 <h1>Comment:</h1>
+                <p class="textarea" >{{ form.body }}</p>
+             </div>
+
+             <button type="submit" class="section" style="margin-top: 20px">Post comment</button>
+
+
+
+         </form>
+        </div>
+
+
+     </div>
+     <h4 class="head_single">сопутствующие товары</h4>
+     <div class="span_3">
+         {% for book_circle in book_circle_single %}
+                     <div class="col-sm-3 grid_1">
+                        <a href="{% url 'single' book_circle.id %}">
+                         <img src="{{ book_circle.image.url }}" class="img-responsive" style="display: block; margin-left: auto; margin-right: auto; max-width: 300px; max-height: 300px;" alt=""/>
+                         <h3>{{ book_circle.title|safe|truncatewords:3 }}</h3>
+                         <p>{{ book_circle.аuthor }}</p>
+                         <h4>{{ book_circle.price }}$</h4>
+                         </a>
+                      </div>
+         {% endfor %}
+	     </div>
+      </div>
+</div>
+
+<link href="{% static 'css/flexslider.css' %}" rel='stylesheet' type='text/css' />
+							  <script defer src="{% static 'js/jquery.flexslider.js' %}"></script>
+                                  <script type="text/javascript">
+                                    $(function(){
+                                      SyntaxHighlighter.all();
+                                    });
+                                    $(window).load(function(){
+                                      $('.flexslider').flexslider({
+                                        animation: "slide",
+                                        start: function(slider){
+                                          $('body').removeClass('loading');
+                                        }
+                                      });
+                                    });
+							  </script>
+
+
+
+<script>
+
+
+const star1 = document.querySelector('.star1')
+const star2 = document.querySelector('.star2')
+const star3 = document.querySelector('.star3')
+const star4 = document.querySelector('.star4')
+const star5 = document.querySelector('.star5')
+
+
+
+function stars1() {
+    star1.style.color = "#ffe400";
+    star2.style.color = "#b6b6b6";
+    star3.style.color = "#b6b6b6";
+    star4.style.color = "#b6b6b6";
+    star5.style.color = "#b6b6b6";
+}
+
+function stars2() {
+    star1.style.color = "#ffe400";
+    star2.style.color = "#ffe400";
+    star3.style.color = "#b6b6b6";
+    star4.style.color = "#b6b6b6";
+    star5.style.color = "#b6b6b6";
+}
+
+function stars3() {
+    star1.style.color = "#ffe400";
+    star2.style.color = "#ffe400";
+    star3.style.color = "#ffe400";
+    star4.style.color = "#b6b6b6";
+    star5.style.color = "#b6b6b6";
+}
+
+function stars4() {
+    star1.style.color = "#ffe400";
+    star2.style.color = "#ffe400";
+    star3.style.color = "#ffe400";
+    star4.style.color = "#ffe400";
+    star5.style.color = "#b6b6b6";
+}
+
+function stars5() {
+    star1.style.color = "#ffe400";
+    star2.style.color = "#ffe400";
+    star3.style.color = "#ffe400";
+    star4.style.color = "#ffe400";
+    star5.style.color = "#ffe400";
+}
+
+
+</script>
+
+
+
+{% endblock %}

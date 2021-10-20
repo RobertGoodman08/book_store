@@ -1,0 +1,86 @@
+.shadow{
+    background: whitesmoke;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.shadow2{
+    background: honeydew;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 1px;
+}
+
+
+.containere{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    padding: 20px;
+    border: 0.5px solid #fff;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+
+.containere:hover{
+    opacity: 1;
+}
+
+ol{
+    display: flex;
+    list-style: none;
+    position: absolute;
+    padding: 50px 0;
+    margin-left: 270px;
+}
+
+ol li{
+    margin: 0 15px;
+}
+
+.star1 {
+    font-size: 50px;
+    color: #b6b6b6;
+    text-decoration: none;
+}
+
+.star2 {
+    font-size: 50px;
+    color: #b6b6b6;
+    text-decoration: none;
+}
+
+.star3 {
+    font-size: 50px;
+    color: #b6b6b6;
+    text-decoration: none;
+}
+.star4 {
+    font-size: 50px;
+    color: #b6b6b6;
+    text-decoration: none;
+}
+.star5 {
+    font-size: 50px;
+    color: #b6b6b6;
+    text-decoration: none;
+}
+
+
+
+.msg{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 65%;
+}
+
+.msg p{
+    display: none;
+    font-size: 30px;
+    font-family: sans-serif;
+    text-transform: capitalize;
+}
